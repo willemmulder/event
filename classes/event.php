@@ -57,7 +57,7 @@ class Event {
 	/**
 	 * The event's userdata.
 	 * 
-	 * @var mixed
+	 * @var array
 	 */
 	public $data;
 	
@@ -81,11 +81,12 @@ class Event {
 	
 	/**
 	 * Binds an variable by reference.
-	 * 
+	 *
+	 * @param	string	The key.
 	 * @param	mixed	The data.
 	 * @return	Event
 	 */
-	public function bind($data)
+	public function bind($key, & $data)
 	{
 		$this->data =& $data;
 		
@@ -94,13 +95,14 @@ class Event {
 	
 	/**
 	 * Sets the data variable to a given value.
-	 * 
+	 *
+	 * @param	string	The key.
 	 * @param	mixed	The value.
 	 * @return	Event
 	 */
-	public function set($data)
+	public function set($key, $data)
 	{
-		$this->data = $data;
+		$this->data[$key] = $data;
 		
 		return $this;
 	}
