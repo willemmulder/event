@@ -13,14 +13,14 @@ To setup an event you must call the static factory method, specifying the name /
 To bind data to the event, use the bind method. This will bind data by reference. In this example i've created a basic setup menu event which binds the current object to the event.
 
 	Event::factory('menu.setup')
-		->bind($this);
+		->bind('key', $this);
 
 #### Setting Userdata
 
 In contrast to binding, setting user data is not set by reference, and as such protected the state of the original object.
 
 	Event::factory('menu.setup')
-		->set($this);
+		->set('key', $this);
 
 > Note: All methods are chainable except the invoke() method.
 
