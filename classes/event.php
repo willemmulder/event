@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * 
+ * The main event class.
  *
  * @package		Event
  * @author		Oliver Morgan
@@ -80,7 +80,7 @@ class Event {
 	}
 	
 	/**
-	 * Binds an object by reference.
+	 * Binds an variable by reference.
 	 * 
 	 * @param	mixed	The data.
 	 * @return	Event
@@ -88,6 +88,19 @@ class Event {
 	public function bind($data)
 	{
 		$this->data =& $data;
+		
+		return $this;
+	}
+	
+	/**
+	 * Sets the data variable to a given value.
+	 * 
+	 * @param	mixed	The value.
+	 * @return	Event
+	 */
+	public function set($data)
+	{
+		$this->data = $data;
 		
 		return $this;
 	}
