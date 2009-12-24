@@ -20,7 +20,7 @@ To bind data to the event, use the bind method. This will bind data by reference
 In contrast to binding, setting user data is not set by reference, and as such protected the state of the original object.
 
 	Event::factory('menu.setup')
-		->bind($this);
+		->set($this);
 
 > Note: All methods are chainable except the invoke() method.
 
