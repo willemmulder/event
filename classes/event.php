@@ -59,7 +59,7 @@ class Event {
 	 * 
 	 * @var mixed
 	 */
-	protected $_data;
+	public $data;
 	
 	/**
 	 * A list of callbacks to be called by the event on invoke.
