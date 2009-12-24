@@ -28,9 +28,15 @@ To have a function called when the event is invoked, you can use the callback me
 	Event::instance('menu.setup')
 		->callback(array($this, 'callback'));
 
-+> Note: Make sure your callback is publically accessible, otherwise an exception will be thrown.
+> Note: Make sure your callback matches the required delegate (shown below) and is publically accessible, otherwise an exception will be thrown.
 
-On invoke, your callback will be called and given the contents of the data variable. You need to know what this will be before setting up the callback.
+On invoke, your callback will be called and given the event object. You need to know what this will be before setting up the callback.
+
+#### Callback Delegate Method
+
+Your callback method should be of the same format as:
+
+	public function callback(Event $event) { }
 
 ### Invoking events
 
@@ -39,4 +45,4 @@ This is sometimes called dispatching, but is where every callback in the event o
 	Event::instance('menu.setup')
 		->invoke();
 
-+> Note: Do not invoke the same event in a callback otherwise reccursion will occur.
+> Note: Do not invoke the same event in a callback otherwise reccursion will occur.

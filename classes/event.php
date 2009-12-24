@@ -112,7 +112,7 @@ class Event {
 	{
 		foreach ($this->_callbacks as $callback)
 		{
-			call_user_func($callback, $this->data);
+			call_user_func($callback, $this);
 		}
 	}
 	
