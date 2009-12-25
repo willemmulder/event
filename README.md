@@ -6,31 +6,33 @@ This handly little module is very small, lightweight and well documented.
 
 ### Setting up an event
 
-To setup an event you must call the static factory method, specifying the name / identifier of the event. This will return the event object.
+To setup an event you must call the static instance method, specifying the name / identifier of the event. This will return the event object.
+
+	Event::instance('menu.setup');
+
+### Retrieving event instances
+
+Events can also be retrieved using the instance method.
+
+	Event::instance('menu.setup');
+
+The instance of the event with name `menu.setup` is returned using this method.
 
 #### Binding Userdata
 
 To bind data to the event, use the bind method. This will bind data by reference. In this example i've created a basic setup menu event which binds the current object to the event.
 
-	Event::factory('menu.setup')
-		->bind('key', $this);
+	Event::instance('menu.setup')
+		->bind('key', $value);
 
 #### Setting Userdata
 
 In contrast to binding, setting user data is not set by reference, and as such protected the state of the original object.
 
-	Event::factory('menu.setup')
-		->set('key', $this);
+	Event::instance('menu.setup')
+		->set('key', $value);
 
 > Note: All methods are chainable except the execute() and callbacks() method.
-
-### Retrieving event instances
-
-Events can be retrieved using the instance method. You must be sure that the method has already been created using the factory method, otherwise an exception is thrown.
-
-	Event::instance('menu.setup');
-
-The instance of the event with name `menu.setup` is returned using this method.
 
 ### Adding observers / callbacks
 
@@ -73,3 +75,10 @@ The `reset()` method allows you to clear all callbacks from the event object. Us
 
 	Event::instance('menu.setup')
 		->reset();
+
+### Stopping the further execution of event callbacks
+
+From inside a callback, the `stop()` method will stop the execution of the current event. No other callbacks will be run after the current one completes. This method has no affect when run outside of callbacks.
+
+	Event::instance('menu.setup')
+		->stop();
