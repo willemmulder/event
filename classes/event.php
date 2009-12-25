@@ -119,6 +119,8 @@ class Event {
 	public function reset()
 	{
 		$this->_callbacks = array();
+		
+		return $this;
 	}
 	
 	/**
