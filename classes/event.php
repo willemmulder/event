@@ -102,11 +102,11 @@ class Event {
 	}
 	
 	/**
-	 * Invokes the event calling all callbacks with the given data.
+	 * Executes the event calling all callbacks with the given data.
 	 * 
 	 * @return	void
 	 */
-	public function invoke()
+	public function execute()
 	{
 		foreach ($this->_callbacks as $callback)
 		{
