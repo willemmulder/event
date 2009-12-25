@@ -117,7 +117,7 @@ class Event {
 	 * 
 	 * @return	void
 	 */
-	public function invoke()
+	public function execute()
 	{
 		foreach ($this->_callbacks as $callback)
 		{
