@@ -22,7 +22,7 @@ In contrast to binding, setting user data is not set by reference, and as such p
 	Event::factory('menu.setup')
 		->set('key', $this);
 
-> Note: All methods are chainable except the invoke() method.
+> Note: All methods are chainable except the execute() and callbacks() method.
 
 ### Retrieving event instances
 
@@ -34,14 +34,14 @@ The instance of the event with name `menu.setup` is returned using this method.
 
 ### Adding observers / callbacks
 
-To have a function called when the event is invoked, you can use the callback method to add your callback to the event.
+To have a function called when the event is executed, you can use the callback method to add your callback to the event.
 
 	Event::instance('menu.setup')
 		->callback(array($this, 'callback'));
 
 > Note: Make sure your callback matches the required delegate (shown below) and is publically accessible, otherwise an exception will be thrown.
 
-On invoke, your callback will be called and given the event object. You need to know what this will be before setting up the callback.
+On execute, your callback will be called and given the event object. You need to know what this will be before setting up the callback.
 
 #### Callback Delegate Method
 
@@ -49,11 +49,27 @@ Your callback method should be of the same format as:
 
 	public function callback(Event $event) { }
 
-### Invoking events
+### Executing events
 
 This is sometimes called dispatching, but is where every callback in the event object is called with the binded data.
 
 	Event::instance('menu.setup')
-		->invoke();
+		->execute();
 
-> Note: Do not invoke the same event in a callback otherwise reccursion will occur.
+> Note: Do not execute the same event in a callback unconditionally otherwise reccursion will occur.
+
+### Retrieving event callbacks
+
+You can retrieve event callbacks using the `callbacks()` method. This in conjunction with the `reset()` method is useful for re-ordering callbacks within the event object.
+
+	Event::instance('menu.setup')
+		->callbacks();
+
+> An empty array will be returned if no callbacks have been added.
+
+### Clearing callbacks
+
+The `reset()` method allows you to clear all callbacks from the event object. Use this method with caution as it could result in undesired effects. As said before this would mainly be used in conjunction with the 	`callbacks()` method for re-ordering callbacks.
+
+	Event::instance('menu.setup')
+		->reset();
