@@ -17,37 +17,6 @@ class Event {
 	protected static $_instances;
 	
 	/**
-	 * Creates a new instance of an event, overwriting any events with the same name.
-	 * 
-	 * @return	Event
-	 */
-	public static function factory($name)
-	{
-		return $this->_instances[$name] = new self($name);
-	}
-	
-	/**
-	 * Retrieves an existing event from existing instances, if none are found an error is thrown.
-	 * 
-	 * @param	string	The name of the instance.
-	 * @throws	Kohana_Exception
-	 * @return	Event
-	 */
-	public static function instance($name)
-	{
-		if (isset(self::$_instances[$name]))
-		{
-			return self::$_instances[$name];
-		}
-		else
-		{
-			throw new Kohana_Exception('Event instance :inst could not be found.', array(
-				':inst'	=> $name
-			));
-		}
-	}
-	
-	/**
 	 * The event's identifier.
 	 * 
 	 * @var	string
@@ -67,6 +36,20 @@ class Event {
 	 * @var	array
 	 */
 	protected $_callbacks;
+
+	/**
+	 * Retrieves an event from instances, creating one if needed.
+	 *
+	 * @param	string	The name of the instance.
+	 * @return	Event
+	 */
+	public static function instance($name)
+	{
+		isset(self::$_instances[$name])
+		AND self::$_instances[$name] = new self($name);
+
+		return self::$_instances[$name];
+	}
 	
 	/**
 	 * Initializes a new instance of the event object.
