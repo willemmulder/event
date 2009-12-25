@@ -38,6 +38,13 @@ class Event {
 	protected $_callbacks;
 
 	/**
+	 * Will stop the execution of the event if set to false using stop().
+	 *
+	 * @var bool
+	 */
+	protected $_active;
+
+	/**
 	 * Retrieves an event from instances, creating one if needed.
 	 *
 	 * @param	string	The name of the instance.
@@ -109,12 +116,14 @@ class Event {
 	public function callback($callback)
 	{
 		$this->_callbacks[] = $callback;
+
+		return $this;
 	}
 	
 	/**
 	 * Resets the callbacks array to an empty array.
 	 * 
-	 * @return void
+	 * @return Event
 	 */
 	public function reset()
 	{
@@ -130,10 +139,26 @@ class Event {
 	 */
 	public function execute()
 	{
+		$this->_active = TRUE;
+		
 		foreach ($this->_callbacks as $callback)
 		{
+			// stop running callbacks if stop() gets called
+			if ( ! $this->_active)
+				return;
+
 			call_user_func($callback, $this);
 		}
+	}
+
+	/**
+	 * Will stop the execution of the event.
+	 *
+	 * @return void
+	 */
+	public function stop()
+	{
+		$this->_active = FALSE;
 	}
 	
 } // End Event
