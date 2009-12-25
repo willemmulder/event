@@ -45,7 +45,7 @@ class Event {
 	 */
 	public static function instance($name)
 	{
-		isset(self::$_instances[$name])
+		( ! isset(self::$_instances[$name]))
 		AND self::$_instances[$name] = new self($name);
 
 		return self::$_instances[$name];
