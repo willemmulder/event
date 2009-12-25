@@ -111,6 +111,15 @@ class Event {
 		$this->_callbacks[] = $callback;
 	}
 	
+	/**
+	 * Resets the callbacks array to an empty array.
+	 * 
+	 * @return void
+	 */
+	public function reset()
+	{
+		$this->_callbacks = array();
+	}
 	
 	/**
 	 * Invokes the event calling all callbacks with the given data.
