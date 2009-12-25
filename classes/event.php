@@ -91,6 +91,16 @@ class Event {
 	}
 	
 	/**
+	 * Returns an array of all the callbacks associated with the event.
+	 * 
+	 * @return array
+	 */
+	public function callbacks()
+	{
+		return $this->_callbacks;
+	}
+	
+	/**
 	 * Adds a callback to be invoked by the event.
 	 * 
 	 * @param	mixed	The callback to be invoked.
@@ -100,6 +110,7 @@ class Event {
 	{
 		$this->_callbacks[] = $callback;
 	}
+	
 	
 	/**
 	 * Invokes the event calling all callbacks with the given data.
