@@ -78,7 +78,7 @@ class Event {
 	 */
 	public function bind($key, & $data)
 	{
-		$this->data =& $data;
+		$this->data[$key] =& $data;
 		
 		return $this;
 	}
