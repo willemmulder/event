@@ -35,7 +35,7 @@ class Event {
 	 * 
 	 * @var	array
 	 */
-	protected $_callbacks;
+	protected $_callbacks = array();
 
 	/**
 	 * Will stop the execution of the event if set to false using stop().
