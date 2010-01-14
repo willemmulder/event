@@ -24,8 +24,10 @@ class Event {
 	 */
 	public static function instance($name)
 	{
-		( ! isset(self::$_instances[$name]))
-		AND self::$_instances[$name] = new self($name);
+		if ( ! isset(self::$_instances[$name]))
+		{
+			self::$_instances[$name] = new self($name);
+		}
 
 		return self::$_instances[$name];
 	}
@@ -42,7 +44,7 @@ class Event {
 	 * 
 	 * @var array
 	 */
-	public $data;
+	protected $_data;
 	
 	/**
 	 * A list of callbacks to be called by the event on invoke.
@@ -54,7 +56,7 @@ class Event {
 	/**
 	 * Will stop the execution of the event if set to false using stop().
 	 *
-	 * @var bool
+	 * @var	bool
 	 */
 	protected $_active;
 	
@@ -67,6 +69,17 @@ class Event {
 	protected function __construct($name)
 	{
 		$this->name = $name;
+	}
+	
+	/**
+	 * Returns the current set of data parameters.
+	 * 
+	 * @param	mixed	Optionally you can return just one, with the key.
+	 * @return	mixed
+	 */
+	public function data($key = NULL)
+	{
+		return $key === NULL ? $this->_data : $this->_data[$key];
 	}
 	
 	/**
@@ -147,8 +160,15 @@ class Event {
 			{
 				return;
 			}
-
-			call_user_func($callback, $this);
+			
+			if (empty($this->_data))
+			{
+				call_user_func($callback, $this);
+			}
+			else
+			{
+				call_user_func_array($callback, $this->_data + $this);
+			}
 		}
 	}
 
