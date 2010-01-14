@@ -41,15 +41,17 @@ To have a function called when the event is executed, you can use the callback m
 	Event::instance('menu.setup')
 		->callback(array($this, 'callback'));
 
-> Note: Make sure your callback matches the required delegate (shown below) and is publically accessible, otherwise an exception will be thrown.
+> Note: Make sure your callback matches the required event specific delegate and is publically accessible, otherwise an exception will be thrown.
 
-On execute, your callback will be called and given the event object. You need to know what this will be before setting up the callback.
+On execute your callback will be called, and given the contents of the user data as parameters, with the event object at the end.
 
 #### Callback Delegate Method
 
 Your callback method should be of the same format as:
 
-	public function callback(Event $event) { }
+	public function callback($1, $2, Event $event) { }
+
+Where $1 and $2, represent variables, defined by the event delegate.
 
 ### Executing events
 
