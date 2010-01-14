@@ -17,6 +17,20 @@ class Event {
 	protected static $_instances;
 	
 	/**
+	 * Retrieves an event from instances, creating one if needed.
+	 *
+	 * @param	string	The name of the instance.
+	 * @return	Event
+	 */
+	public static function instance($name)
+	{
+		( ! isset(self::$_instances[$name]))
+		AND self::$_instances[$name] = new self($name);
+
+		return self::$_instances[$name];
+	}
+	
+	/**
 	 * The event's identifier.
 	 * 
 	 * @var	string
@@ -43,20 +57,6 @@ class Event {
 	 * @var bool
 	 */
 	protected $_active;
-
-	/**
-	 * Retrieves an event from instances, creating one if needed.
-	 *
-	 * @param	string	The name of the instance.
-	 * @return	Event
-	 */
-	public static function instance($name)
-	{
-		( ! isset(self::$_instances[$name]))
-		AND self::$_instances[$name] = new self($name);
-
-		return self::$_instances[$name];
-	}
 	
 	/**
 	 * Initializes a new instance of the event object.
@@ -143,9 +143,10 @@ class Event {
 		
 		foreach ($this->_callbacks as $callback)
 		{
-			// stop running callbacks if stop() gets called
 			if ( ! $this->_active)
+			{
 				return;
+			}
 
 			call_user_func($callback, $this);
 		}
