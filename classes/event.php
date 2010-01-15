@@ -75,11 +75,12 @@ class Event {
 	 * Returns the current set of data parameters.
 	 * 
 	 * @param	mixed	Optionally you can return just one, with the key.
+	 * @param	mixed	The value to return if the key wasn't found.
 	 * @return	mixed
 	 */
-	public function data($key = NULL)
+	public function data($key = NULL, $default = NULL)
 	{
-		return $key === NULL ? $this->_data : $this->_data[$key];
+		return $key === NULL ? $this->_data : arr::get($this->_data, $key, $default);
 	}
 	
 	/**
