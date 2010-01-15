@@ -183,4 +183,15 @@ class Event {
 		$this->_active = FALSE;
 	}
 	
+	/**
+	 * Returns a data value.
+	 * 
+	 * @param	mixed	The key index.
+	 * @return	mixed
+	 */
+	public function __get($key)
+	{
+		return $this->data($key);
+	}
+	
 } // End Event
