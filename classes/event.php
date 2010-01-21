@@ -162,14 +162,7 @@ class Event {
 				return;
 			}
 			
-			if (empty($this->_data))
-			{
-				call_user_func($callback, $this);
-			}
-			else
-			{
-				call_user_func_array($callback, $this->_data + $this);
-			}
+			call_user_func_array($callback, $this->_data[] =& $this);
 		}
 	}
 
