@@ -44,7 +44,7 @@ class Event {
 	 * 
 	 * @var array
 	 */
-	protected $_data;
+	protected $_data = array();
 	
 	/**
 	 * A list of callbacks to be called by the event on invoke.
@@ -58,7 +58,7 @@ class Event {
 	 *
 	 * @var	bool
 	 */
-	protected $_active;
+	protected $_active = TRUE;
 	
 	/**
 	 * Initializes a new instance of the event object.
@@ -92,7 +92,7 @@ class Event {
 	 */
 	public function bind($key, & $data)
 	{
-		$this->data[$key] =& $data;
+		$this->_data[$key] =& $data;
 		
 		return $this;
 	}
@@ -106,7 +106,7 @@ class Event {
 	 */
 	public function set($key, $data)
 	{
-		$this->data[$key] = $data;
+		$this->_data[$key] = $data;
 		
 		return $this;
 	}
@@ -162,14 +162,7 @@ class Event {
 				return;
 			}
 			
-			if (empty($this->_data))
-			{
-				call_user_func($callback, $this);
-			}
-			else
-			{
-				call_user_func_array($callback, $this->_data + $this);
-			}
+			call_user_func_array($callback, $this->_data + array( & $this));
 		}
 	}
 
