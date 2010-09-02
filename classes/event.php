@@ -31,6 +31,8 @@ class Event {
 
 		return self::$_instances[$name];
 	}
+
+	public static $activeevent = NULL;
 	
 	/**
 	 * The event's identifier.
@@ -153,6 +155,7 @@ class Event {
 	 */
 	public function execute()
 	{
+		$previousevent = self::activeevent = & $this;
 		$this->_active = TRUE;
 		
 		foreach ($this->_callbacks as $callback)
@@ -162,8 +165,9 @@ class Event {
 				return;
 			}
 			
-			call_user_func_array($callback, $this->_data + array( & $this));
+			call_user_func_array($callback, $this->_data);
 		}
+		self::activeevent = $previousevent;
 	}
 
 	/**
